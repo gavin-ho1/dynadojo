@@ -388,7 +388,7 @@ elif args.command == 'delete':
         os.rmdir(args.data_dir+'/intermediate')
         os.rmdir(args.data_dir)
         
-        print(red('Deleted'))
+        print(red(args.data_dir+' Deleted'))
     else: #Hint 
         print(red(bold('Directory not specified. \nTo get a list of all experiments:')))
         print(red('    python -m experiments status'))
