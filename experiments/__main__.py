@@ -65,7 +65,8 @@ run_parser = subparsers.add_parser('run', help='Run an experiment param file')
 plot_parser = subparsers.add_parser('plot', help='Plot an experiment results')
 check_parser = subparsers.add_parser('check', help='Check for missing jobs')
 scale_parser = subparsers.add_parser('scale', help='Temporary utility which rescales losses by dimensionality')
-status_parser =subparsers.add_parser('status', help='List all available config.json files that you have already made')
+status_parser = subparsers.add_parser('status', help='List all available config.json files that you have already made')
+delete_parser = subparsers.add_parser('delete', help='Delete experiment')
 
 # Accept command line arguments
 make_parser.add_argument('--algo', type=str, default='lr', help='Specify which algo to run')
@@ -91,6 +92,8 @@ plot_parser.add_argument('--output_dir', type=str, default="experiments/outputs"
 check_parser.add_argument('--data_dir', type=str, help='where to load results from')
 
 scale_parser.add_argument('--data_dir', type=str, help='where to load results from')
+
+delete_parser.add_argument('--data_dir', type=str, help='specify what experiment directory to delete')
 
 # status_parser.add_argument('--system', type=str, default=None, choices=system_dict.keys(), help='filter by system')
 status_parser.add_argument('--is_complete', type=str, choices=['true','false'],help='filter by completed experiments')
@@ -377,3 +380,15 @@ elif args.command == 'status':
 
                 print(loadingBar(path['complete_jobs'], path['total_jobs'], 10))
             print()
+elif args.command == 'delete':
+    if os.path.exists(args.data_dir): #Check if directory exists
+        for filename in os.listdir(args.data_dir):
+            if os.path.isfile(os.path.join(args.data_dir, filename)):
+                os.remove(os.path.join(args.data_dir, filename))
+        os.rmdir(args.data_dir+'/intermediate')
+        os.rmdir(args.data_dir)
+        
+        print(red('Deleted'))
+    else: #Hint 
+        print(red(bold('Directory not specified. \nTo get a list of all experiments:')))
+        print(red('    python -m experiments status'))
