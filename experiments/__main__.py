@@ -403,8 +403,15 @@ elif args.command == 'make_status':
                 })
     
     #Fetch experiment information from params.py and utils.py, loop through the various lists and dictionaries to pull out all possible combinations of experiments
-    chall_list = challenge_dicts.keys()
+    
+    #Print Hint
+    print(red(bold('To make an experiment:')))
+    print(red('    python -m experiments make --challenge <challenge> --system <system> --algo <algo>\n'))
+    
+    #Print Title
     print(cyan(bold('List of all possible experiments that can be made:')))
+    
+    chall_list = challenge_dicts.keys()
     for challenge in chall_list:
         _, sys_dict = challenge_dicts[challenge]
         sys_list = sys_dict.keys()
@@ -420,7 +427,7 @@ elif args.command == 'make_status':
                 if system != 'default':
                     out_str += f'--system = {system} '
                 if algo != 'default':
-                    out_str += f'--algo = {algo}'
+                    out_str += f'--algo = {algo} '
                 
                 pr = True
                 for experiment in experiment_list:
