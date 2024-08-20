@@ -93,7 +93,6 @@ check_parser.add_argument('--data_dir', type=str, help='where to load results fr
 
 scale_parser.add_argument('--data_dir', type=str, help='where to load results from')
 
-# status_parser.add_argument('--system', type=str, default=None, choices=system_dict.keys(), help='filter by system')
 status_parser.add_argument('--is_complete', type=str, choices=['true','false'],help='filter by completed experiments')
 status_parser.add_argument('--algo', type=str, help='Specify which algo to filter through')
 status_parser.add_argument('--system', type=str, help='Specify which system to filter through')
